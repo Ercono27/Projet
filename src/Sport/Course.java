@@ -63,6 +63,7 @@ public class Course {
     public void listeCorueursPlaceGain(){
         //une fois course finie, affiche le coureur avec ça place et ses gains
     }
+    /*
     public BigDecimal gainTotal(){
 
     }
@@ -71,7 +72,7 @@ public class Course {
             if (c.getPlace()==1)
                 return c.getCour();
         }
-    }
+    }*/
     public void addCoureur(Coureur c){
         Classement cl=new Classement();
         cl.setCour(c);
