@@ -1,5 +1,6 @@
 package Sport;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class Coureur {
     /**
      * Date de naissance du coureur
      */
-    private Date dateNaiss;
+    private LocalDate dateNaiss;
     /**
      * Nationnalité du coureur
      */
@@ -56,7 +57,7 @@ public class Coureur {
      * @param nationalite nationalité du coureur
      * @param villeResidence ville de résidence du coureur
      */
-    public Coureur(int idCoureur, String matricule, String nom, String prenom, Date dateNaiss, String nationalite, Ville villeResidence) {
+    public Coureur(int idCoureur, String matricule, String nom, String prenom, LocalDate dateNaiss, String nationalite, Ville villeResidence) {
         this.idCoureur = idCoureur;
         this.matricule = matricule;
         this.nom = nom;
@@ -134,7 +135,7 @@ public class Coureur {
      * Obtient la date de naissance du coureur
      * @return la date de naissance du coureur
      */
-    public Date getDateNaiss() {
+    public LocalDate getDateNaiss() {
         return dateNaiss;
     }
 
@@ -142,7 +143,7 @@ public class Coureur {
      * Définit la date de naissance du coureur
      * @param dateNaiss nouvelle date de naissance du coureur
      */
-    public void setDateNaiss(Date dateNaiss) {
+    public void setDateNaiss(LocalDate dateNaiss) {
         this.dateNaiss = dateNaiss;
     }
 

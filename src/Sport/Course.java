@@ -1,6 +1,7 @@
 package Sport;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,16 +50,12 @@ public class Course {
      * @param nom nom de la course
      * @param priceMoney cagnotte total de la course
      * @param km kilométrage de la course
-     * @param listeInfo liste des infos de la course
-     * @param listeClassement liste des classements de la course
      */
-    public Course(int idCourse, String nom, BigDecimal priceMoney, int km, List<Infos> listeInfo, List<Classement> listeClassement) {
+    public Course(int idCourse, String nom, BigDecimal priceMoney, int km) {
         this.idCourse = idCourse;
         this.nom = nom;
         this.priceMoney = priceMoney;
         this.km = km;
-        this.listeInfo = listeInfo;
-        this.listeClassement = listeClassement;
     }
 
     /**
@@ -196,17 +193,7 @@ public class Course {
      * @param c le coureur à supprimer
      */
     public void supCoureur(Coureur c) {
-        for (Classement cl : listeClassement) {
-            if (cl.getCour().equals(c)) {
-                c.setIdCoureur(-1);
-                c.setMatricule("");
-                c.setNom("");
-                c.setPrenom("");
-                Date d = new Date();
-                c.setDateNaiss(d);
-                c.setNationalite("");
-            }
-        }
+        listeClassement.removeIf(cl -> cl.getCour().equals(c));
     }
 
     /**
@@ -216,12 +203,12 @@ public class Course {
      * @param gain le nouveau gain du coureur
      */
     public void resultat(Coureur c, int place, BigDecimal gain) {
-        for (Classement cl : listeClassement) {
-            if (cl.getCour().equals(c)) {
-                cl.setPlace(place);
-                cl.setGain(gain);
-            }
-        }
+        int x=listeClassement.indexOf(c);
+        Classement cl=new Classement();
+        cl=listeClassement.get(x);
+        cl.setPlace(place);
+        cl.setGain(gain);
+        listeClassement.set(x,cl);
     }
     /**
      * Méthode pour modifier le classement et le gain d'un coureur déja classé
@@ -248,20 +235,25 @@ public class Course {
      */
     public void addVille(Ville ville) {
         Infos i = new Infos();
-        Date d = new Date();
+        LocalDate d = null;
         i.setVille(ville);
         i.setDepartDate(d);
         listeInfo.add(i);
     }
-    //TODO
-    //Je ne comprends pas comment faire cette fonction avec uniquement un seul paramètre.
-       /*
-    public void modifVille(Date date2){
+
+    /**
+     * Modifie la date de départ associée à une ville spécifiée dans la liste d'informations
+     * @param date2 nouvelle date de départ à assigner
+     * @param ville nom de la ville dont la date de départ doit être modifiée
+     */
+    public void modifVille(LocalDate date2,String ville){
         for (Infos i : listeInfo){
-            if()
+            if(i.getVille().getNom().equals(ville)){
+                i.setDepartDate(date2);
+            }
         }
     }
-    */
+
 
     /**
      * Méthode pour supprimer une ville des informations associées à la course

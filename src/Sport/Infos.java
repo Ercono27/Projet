@@ -1,5 +1,6 @@
 package Sport;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class Infos {
     /**
      * Date de départ associée à la ville
      */
-    private Date departDate;
+    private LocalDate departDate;
     /**
      * Ville associée aux informations
      */
@@ -35,7 +36,7 @@ public class Infos {
      * @param departDate Date de départ associée à la ville
      * @param ville Ville associée aux informations
      */
-    public Infos(int idInfos, Date departDate, Ville ville) {
+    public Infos(int idInfos, LocalDate departDate, Ville ville) {
         this.idInfos = idInfos;
         this.departDate = departDate;
         this.ville = ville;
@@ -61,7 +62,7 @@ public class Infos {
      * Obtient la date de départ associée à la ville
      * @return la date de départ associée à la ville
      */
-    public Date getDepartDate() {
+    public LocalDate getDepartDate() {
         return departDate;
     }
 
@@ -69,7 +70,7 @@ public class Infos {
      * Définit la date de départ associée à la ville
      * @param departDate nouvelle date de départ associée à la ville
      */
-    public void setDepartDate(Date departDate) {
+    public void setDepartDate(LocalDate departDate) {
         this.departDate = departDate;
     }
 
