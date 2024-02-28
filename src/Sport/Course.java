@@ -219,7 +219,8 @@ public class Course {
     public void modifier(Coureur c, int place, BigDecimal gain) {
         int x = listeClassement.indexOf(c);
         Classement cla = new Classement();
-        if (x != -1) {
+        if (x != -1)
+        {
             cla.setCour(c);
             cla.setPlace(place);
             cla.setGain(gain);
