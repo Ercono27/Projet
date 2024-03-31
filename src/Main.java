@@ -1,9 +1,7 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import demodb.GestionCourse;
 
 public class Main {
     public static void main(String[] args) {
-
+        GestionCourse g = new GestionCourse();
     }
 }

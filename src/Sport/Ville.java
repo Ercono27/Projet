@@ -60,6 +60,21 @@ public class Ville {
         this.liCour = liCour;
     }
 
+    public Ville(int idVille, String nom, double latitude, double longitude, String pays) {
+        this.idVille = idVille;
+        this.nom = nom;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.pays = pays;
+    }
+
+    public Ville(String nom, double latitude, double longitude, String pays) {
+        this.nom = nom;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.pays = pays;
+    }
+
     /**
      * Obtient l'identifiant de la ville
      * @return l'identifiant de la ville
@@ -132,6 +147,17 @@ public class Ville {
         return pays;
     }
 
+    @Override
+    public String toString() {
+        return "Ville{" +
+                "idVille=" + idVille +
+                ", nom='" + nom + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", pays='" + pays + '\'' +
+                '}';
+    }
+
     /**
      * Définit le pays de la ville
      * @param pays nouveau pays de la ville
@@ -152,4 +178,5 @@ public class Ville {
         Ville ville = (Ville) o;
         return idVille == ville.idVille;
     }
+
 }

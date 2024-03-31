@@ -203,12 +203,13 @@ public class Course {
      * @param gain le nouveau gain du coureur
      */
     public void resultat(Coureur c, int place, BigDecimal gain) {
-        int x=listeClassement.indexOf(c);
-        Classement cl=new Classement();
-        cl=listeClassement.get(x);
-        cl.setPlace(place);
-        cl.setGain(gain);
-        listeClassement.set(x,cl);
+        for (Classement cl : listeClassement) {
+            if (cl.getCour().equals(c))
+            {
+                cl.setPlace(place);
+                cl.setGain(gain);
+            }
+        }
     }
     /**
      * Méthode pour modifier le classement et le gain d'un coureur déja classé
@@ -288,5 +289,15 @@ public class Course {
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "idCourse=" + idCourse +
+                ", nom='" + nom + '\'' +
+                ", priceMoney=" + priceMoney +
+                ", km=" + km +
+                '}';
     }
 }
