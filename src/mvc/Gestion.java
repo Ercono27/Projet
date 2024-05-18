@@ -5,11 +5,12 @@ import mvc.Model.DAOCourse;
 import mvc.Model.ModelCourseDB;
 import mvc.View.CourseAbstractView;
 import mvc.View.CourseViewConsole;
+import utilitaires.Utilitaire;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class GestionCourse {
+public class Gestion {
     private DAOCourse cm;
     private CourseController cc;
     private CourseAbstractView cv;

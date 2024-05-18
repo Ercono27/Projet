@@ -49,7 +49,7 @@ public class CourseViewConsole extends CourseAbstractView {
 
         Course co = lc.get(nl-1);
         String nom = modifyIfNotBlank("nom de la Course",co.getNom());
-        BigDecimal pm = new BigDecimal(modifyIfNotBlank("Price money :",co.getPriceMoney()));
+        BigDecimal pm = new BigDecimal(modifyIfNotBlank("Price money",""+co.getPriceMoney()));
         int km = Integer.parseInt(modifyIfNotBlank("Kilometrage : ",""+co.getKm()));
         Course prmaj =  courseController.update(new Course(co.getIdCourse(),nom,pm,km));
         if(prmaj==null) affMsg("mise à jour infrucueuse");
