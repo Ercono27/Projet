@@ -1,7 +1,6 @@
 package mvc.Model;
 
 import Sport.*;
-import mvc.Controller.VilleController;
 import myconnections.DBConnection;
 
 import java.sql.*;
@@ -13,10 +12,6 @@ public class CoureurModelDB extends DAOCoureur {
     protected Connection dbConnect;
     private DAOVille daoVille;
 
-    public CoureurModelDB(DAOVille daoVille) {
-        this.daoVille = daoVille;
-    }
-
     public CoureurModelDB() {
         dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
@@ -25,6 +20,7 @@ public class CoureurModelDB extends DAOCoureur {
         }
     }
 
+    @Override
     public Coureur addCoureur(Coureur coureur) {
         String query1 = "insert into APICOUREUR(matricule,nom,prenom,datenaiss,nationalite,idville) values(?,?,?,?,?,?)";
         String query2 = "select idcourse from APICOURSE where matricule =? and nom=? and prenom=? and datenaiss=? and nationalite=? and idville=?";
@@ -125,7 +121,6 @@ public class CoureurModelDB extends DAOCoureur {
                 String nationalite = rs.getString(6);
                 int villeId = rs.getInt(7);
                 Ville villeResidence = daoVille.readVille(villeId);
-
                 Coureur c = new Coureur(idcoureur, matricule, nom, prenom, dateNaiss, nationalite, villeResidence);
                 lc.add(c);
             }

@@ -1,6 +1,6 @@
 package mvc.Controller;
+
 import Sport.Coureur;
-import Sport.Course;
 import mvc.Model.DAOCoureur;
 import mvc.View.CoureurAbstarctView;
 
@@ -10,10 +10,9 @@ public class CoureurController {
     private DAOCoureur model;
     private CoureurAbstarctView view;
     private VilleController villeController;
-    public CoureurController(DAOCoureur model, CoureurAbstarctView view,VilleController villeController){
+    public CoureurController(DAOCoureur model, CoureurAbstarctView view){
         this.model=model;
         this.view=view;
-        this.villeController = villeController;
         this.view.setController(this);
     }
 

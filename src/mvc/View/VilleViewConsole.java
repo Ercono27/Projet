@@ -60,7 +60,12 @@ public class VilleViewConsole extends VilleAbstractView {
     private void rechercher() {
         System.out.println("idVille : ");
         int idVille = sc.nextInt();
-        villeController.search(idVille);
+        Ville v=villeController.search(idVille);
+        if(v==null) affMsg("recherche infructueuse");
+        else {
+            affMsg(v.toString());
+
+        }
     }
 
     private void retirer() {
