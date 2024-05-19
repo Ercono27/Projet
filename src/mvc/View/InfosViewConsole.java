@@ -2,7 +2,6 @@ package mvc.View;
 
 import Sport.Infos;
 import Sport.Ville;
-import mvc.Controller.InfosController;
 import mvc.Controller.VilleController;
 
 import java.time.LocalDate;

@@ -1,7 +1,6 @@
 package mvc.Model;
 
 import Sport.Infos;
-import Sport.Ville;
 import mvc.Observer.Subject;
 
 import java.util.List;

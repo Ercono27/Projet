@@ -26,6 +26,7 @@ public class Classement {
      *Coureur associé au classement
      */
     private Coureur cour;
+    private Course course;
 
     /**
      * Constructeur par défaut de la classe Classement
@@ -41,11 +42,12 @@ public class Classement {
      * @param gain gain du coureur dans la course
      * @param cour coureur associé au classement
      */
-    public Classement(int idClassement, int place, BigDecimal gain, Coureur cour) {
+    public Classement(int idClassement, int place, BigDecimal gain, Coureur cour,Course course) {
         this.idClassement = idClassement;
         this.place = place;
         this.gain = gain;
         this.cour = cour;
+        this.course = course;
     }
 
     /**
@@ -112,6 +114,14 @@ public class Classement {
         this.cour = cour;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     /**
      * Redéfinition de la méthode equals pour comparer deux classements par leur identifiant unique
      * @param o l'objet à comparer
@@ -123,5 +133,16 @@ public class Classement {
         if (o == null || getClass() != o.getClass()) return false;
         Classement that = (Classement) o;
         return idClassement == that.idClassement;
+    }
+
+    @Override
+    public String toString() {
+        return "Classement{" +
+                "idClassement=" + idClassement +
+                ", place=" + place +
+                ", gain=" + gain +
+                ", coureur=" + cour +
+                ", course=" + course +
+                '}';
     }
 }

@@ -18,7 +18,6 @@ public class InfosController {
     public List<Infos> getAll(){return model.getInfos();}
     public Infos addInfos(Infos infos){return model.addInfos(infos);}
     public boolean removeInfos(Infos infos){return model.removeInfos(infos);}
-
     public Infos update(Infos infos) {return model.updateInfos(infos);}
     public Infos search(int idInfos) {return model.readInfos(idInfos);}
 }
