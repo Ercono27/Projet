@@ -6,7 +6,7 @@ import mvc.Observer.Observer;
 
 import java.util.List;
 
-public class CoureurAbstarctView implements Observer {
+public abstract class CoureurAbstarctView implements Observer {
     protected CoureurController coureurController;
     protected List<Coureur> lc;
 

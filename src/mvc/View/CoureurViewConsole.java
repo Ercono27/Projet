@@ -1,5 +1,6 @@
 package mvc.View;
 import Sport.*;
+import mvc.Controller.VilleController;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,6 +13,10 @@ import static utilitaires.Utilitaire.choixListe;
 
 public class CoureurViewConsole extends CoureurAbstarctView{
     private Scanner sc=new Scanner(System.in);
+    private VilleController villeController;
+    public CoureurViewConsole(VilleController villeController) {
+        this.villeController = villeController;
+    }
 
     @Override
     public void affMsg(String msg) {
@@ -51,11 +56,11 @@ public class CoureurViewConsole extends CoureurAbstarctView{
         String nom = sc.nextLine();
         System.out.print("Prenom: ");
         String prenom = sc.nextLine();
-        System.out.print("Date de naissance (AAAA-MM-JJ): ");
+        System.out.print("Date de naissance : ");
         LocalDate dateNaiss = LocalDate.parse(sc.nextLine());
         System.out.print("Nationalite: ");
         String nationalite = sc.nextLine();
-        Ville villeResidence = ;
+        Ville villeResidence = selectionnerVille();
         Coureur coureur = new Coureur(0, matricule, nom, prenom, dateNaiss, nationalite, villeResidence);
         Coureur nouveauCoureur = coureurController.addCoureur(coureur);
         if(nouveauCoureur!=null) affMsg("création de :"+nouveauCoureur);
@@ -65,34 +70,52 @@ public class CoureurViewConsole extends CoureurAbstarctView{
     private void modifier() {
         int nl = choixElt(lc);
         Coureur co = lc.get(nl-1);
-        String nom = modifyIfNotBlank("nom du Coureur",co.getNom());
-        BigDecimal pm = new BigDecimal(modifyIfNotBlank("Price money",""+co.getPriceMoney()));
-        int km = Integer.parseInt(modifyIfNotBlank("Kilometrage : ",""+co.getKm()));
-        Course prmaj =  courseController.update(new Course(co.getIdCourse(),nom,pm,km));
+        String nom = modifyIfNotBlank("Nom du Coureur",co.getNom());
+        String matricule = modifyIfNotBlank("Matricule",co.getMatricule());
+        String prenom = modifyIfNotBlank("Prenom ",co.getNom());
+        LocalDate dateNaiss = LocalDate.parse(modifyIfNotBlank("Date de naissance ",""+co.getDateNaiss()));
+        String nationnalite = modifyIfNotBlank("Nationnalite ",co.getNationalite());
+        Ville villeResidence = selectionnerVille();
+        Coureur prmaj =  coureurController.update(new Coureur(co.getIdCoureur(),matricule,nom,prenom,dateNaiss,nationnalite,villeResidence));
         if(prmaj==null) affMsg("mise à jour infrucueuse");
         else affMsg("mise à jour effectuée : "+prmaj);
     }
 
     private void rechercher() {
-        System.out.println("idCourse : ");
+        System.out.println("idCoureur : ");
         int idCourse = sc.nextInt();
-        courseController.search(idCourse);
+        coureurController.search(idCourse);
     }
 
     private void retirer() {
 
         int nl = choixElt(lc);
-        Course pr = lc.get(nl-1);
-        boolean ok = courseController.removeCourse(pr);
+        Coureur pr = lc.get(nl-1);
+        boolean ok = coureurController.removeCoureur(pr);
         if(ok) affMsg("Course effacé");
         else affMsg("Course non effacé");
     }
 
     @Override
-    public Course selectionner(){
-        update(courseController.getAll());
+    public Coureur selectionner(){
+        update(coureurController.getAll());
         int nl =  choixListe(lc);
-        Course pr = lc.get(nl-1);
+        Coureur pr = lc.get(nl-1);
         return pr;
+    }
+
+    private Ville selectionnerVille() {
+        System.out.println("Villes disponibles :");
+        List<Ville> villes = villeController.getAll();
+        affList(villes);
+        System.out.print("Entrez l'ID de la ville de résidence : ");
+        int idVille = sc.nextInt();
+        sc.nextLine();
+        for (Ville ville : villes) {
+            if (ville.getIdVille() == idVille) {
+                return ville;
+            }
+        }
+        return null;
     }
 }

@@ -9,9 +9,11 @@ import java.util.List;
 public class CoureurController {
     private DAOCoureur model;
     private CoureurAbstarctView view;
-    public CoureurController(DAOCoureur model, CoureurAbstarctView view){
+    private VilleController villeController;
+    public CoureurController(DAOCoureur model, CoureurAbstarctView view,VilleController villeController){
         this.model=model;
         this.view=view;
+        this.villeController = villeController;
         this.view.setController(this);
     }
 
