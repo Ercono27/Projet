@@ -8,9 +8,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelCourseDB extends DAOCourse{
+public class CourseModelDB extends DAOCourse{
     protected Connection dbConnect;
-    public ModelCourseDB(){
+    public CourseModelDB(){
         dbConnect= DBConnection.getConnection();
         if (dbConnect==null){
             System.err.println("Erreur de connexion.");

@@ -1,9 +1,7 @@
 package mvc.Controller;
-
 import Sport.Course;
 import mvc.Model.DAOCourse;
 import mvc.View.CourseAbstractView;
-
 
 import java.util.List;
 

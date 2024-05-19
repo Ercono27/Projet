@@ -2,7 +2,7 @@ package mvc;
 
 import mvc.Controller.CourseController;
 import mvc.Model.DAOCourse;
-import mvc.Model.ModelCourseDB;
+import mvc.Model.CourseModelDB;
 import mvc.View.CourseAbstractView;
 import mvc.View.CourseViewConsole;
 import utilitaires.Utilitaire;
@@ -16,7 +16,7 @@ public class Gestion {
     private CourseAbstractView cv;
 
     public void gestion(){
-        cm = new ModelCourseDB();
+        cm = new CourseModelDB();
 
         cv = new CourseViewConsole();
 
