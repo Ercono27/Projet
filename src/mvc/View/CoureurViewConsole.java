@@ -17,6 +17,7 @@ public class CoureurViewConsole extends CoureurAbstarctView{
     public CoureurViewConsole(VilleController villeController) {
         this.villeController = villeController;
     }
+    public CoureurViewConsole(){}
 
     @Override
     public void affMsg(String msg) {

@@ -18,6 +18,7 @@ public class InfosViewConsole extends InfosAbstractView {
     public InfosViewConsole(VilleController villeController) {
         this.villeController = villeController;
     }
+    public InfosViewConsole(){}
 
     @Override
     public void affMsg(String msg) {

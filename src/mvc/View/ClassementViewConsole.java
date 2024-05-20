@@ -21,6 +21,7 @@ public class ClassementViewConsole extends ClassementAbstractView {
         this.courseController=courseController;
         this.classementController=classementController;
     }
+    public ClassementViewConsole(){}
     @Override
     public void affMsg(String msg) {
         System.out.println("Information: " + msg);
