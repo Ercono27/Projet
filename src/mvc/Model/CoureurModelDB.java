@@ -18,12 +18,13 @@ public class CoureurModelDB extends DAOCoureur {
             System.err.println("Erreur de connexion.");
             System.exit(1);
         }
+        daoVille = new VilleModelDB();
     }
 
     @Override
     public Coureur addCoureur(Coureur coureur) {
         String query1 = "insert into APICOUREUR(matricule,nom,prenom,datenaiss,nationalite,idville) values(?,?,?,?,?,?)";
-        String query2 = "select idcourse from APICOURSE where matricule =? and nom=? and prenom=? and datenaiss=? and nationalite=? and idville=?";
+        String query2 = "select idcoureur from APICOUREUR where matricule =? and nom=? and prenom=? and datenaiss=? and nationalite=? and idville=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(query1);
              PreparedStatement pstm2 = dbConnect.prepareStatement(query2);
         ) {
@@ -36,6 +37,11 @@ public class CoureurModelDB extends DAOCoureur {
             int n = pstm1.executeUpdate();
             if (n == 1) {
                 pstm2.setString(1, coureur.getMatricule());
+                pstm2.setString(2, coureur.getNom());
+                pstm2.setString(3, coureur.getPrenom());
+                pstm2.setDate(4, Date.valueOf(coureur.getDateNaiss()));
+                pstm2.setString(5, coureur.getNationalite());
+                pstm2.setInt(6, coureur.getVilleResidence().getIdVille());
                 ResultSet rs = pstm2.executeQuery();
                 if (rs.next()) {
                     int idCoureur = rs.getInt(1);
@@ -43,12 +49,15 @@ public class CoureurModelDB extends DAOCoureur {
                     notifyObservers();
                     return coureur;
                 } else {
-                    System.out.println("record introuvable");
+                    System.out.println("Record introuvable");
                     return null;
                 }
-            } else return null;
+            } else {
+                System.out.println("Erreur lors de l'insertion du coureur");
+                return null;
+            }
         } catch (SQLException e) {
-            System.out.println("erreur sql :" + e);
+            System.out.println("Erreur SQL : " + e.getMessage());
             return null;
         }
     }
@@ -70,19 +79,26 @@ public class CoureurModelDB extends DAOCoureur {
 
     @Override
     public Coureur updateCoureur(Coureur coureur) {
-        String query = "update APICOUREUR set matricule=? where idCoureur = ?";
+        String query = "UPDATE APICOUREUR SET matricule=?, nom=?, prenom=?, datenaiss=?, nationalite=?, idville=? WHERE idCoureur=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1, coureur.getMatricule());
-            pstm.setInt(2, coureur.getIdCoureur());
+            pstm.setString(2, coureur.getNom());
+            pstm.setString(3, coureur.getPrenom());
+            pstm.setDate(4, Date.valueOf(coureur.getDateNaiss()));
+            pstm.setString(5, coureur.getNationalite());
+            pstm.setInt(6, coureur.getVilleResidence().getIdVille());
+            pstm.setInt(7, coureur.getIdCoureur());
             int n = pstm.executeUpdate();
             notifyObservers();
-            if (n != 0) return readCoureur(coureur.getIdCoureur());
+            if (n != 0)
+                return readCoureur(coureur.getIdCoureur());
             else return null;
         } catch (SQLException e) {
-            System.out.println("erreur sql :" + e);
+            System.out.println("Erreur SQL : " + e.getMessage());
             return null;
         }
     }
+
 
     @Override
     public Coureur readCoureur(int idCoureur) {

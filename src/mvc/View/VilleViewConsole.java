@@ -45,7 +45,7 @@ public class VilleViewConsole extends VilleAbstractView {
     }
 
     private void modifier() {
-        int nl = choixElt(lv);
+        int nl = choixListe(lv);
 
         Ville vi = lv.get(nl-1);
         String nom = modifyIfNotBlank("Nom de la ville",vi.getNom());
@@ -70,7 +70,7 @@ public class VilleViewConsole extends VilleAbstractView {
 
     private void retirer() {
 
-        int nl = choixElt(lv);
+        int nl = choixListe(lv);
         Ville pr = lv.get(nl-1);
         boolean ok = villeController.removeVille(pr);
         if(ok) affMsg("Course effacé");
@@ -84,6 +84,7 @@ public class VilleViewConsole extends VilleAbstractView {
         double latitude = sc.nextInt();
         System.out.print("Longitude :");
         double longitude = sc.nextDouble();
+        sc.nextLine();
         System.out.println("Pays :");
         String pays=sc.nextLine();
         Ville pr = villeController.addVille(new Ville(0,nom,latitude,longitude,pays)) ;

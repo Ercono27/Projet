@@ -22,8 +22,8 @@ public class VilleModelDB extends DAOVille {
 
     @Override
     public Ville addVille(Ville ville) {
-        String query1 = "insert into APIVILLE(nom,latitude,longitude,pays) values(?,?,?,?)";
-        String query2 = "select idville from APIVILLE where nom=? and latitude=? and longitude=? and pays=?";
+        String query1 = "INSERT INTO APIVILLE(nom, latitude, longitude, pays) VALUES (?, ?, ?, ?)";
+        String query2 = "SELECT idville FROM APIVILLE WHERE nom = ? AND latitude = ? AND longitude = ? AND pays = ?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(query1);
              PreparedStatement pstm2 = dbConnect.prepareStatement(query2);
         ) {
@@ -31,9 +31,14 @@ public class VilleModelDB extends DAOVille {
             pstm1.setDouble(2, ville.getLatitude());
             pstm1.setDouble(3, ville.getLongitude());
             pstm1.setString(4, ville.getPays());
+
             int n = pstm1.executeUpdate();
             if (n == 1) {
                 pstm2.setString(1, ville.getNom());
+                pstm2.setDouble(2, ville.getLatitude());
+                pstm2.setDouble(3, ville.getLongitude());
+                pstm2.setString(4, ville.getPays());
+
                 ResultSet rs = pstm2.executeQuery();
                 if (rs.next()) {
                     int idVille = rs.getInt(1);
@@ -41,15 +46,19 @@ public class VilleModelDB extends DAOVille {
                     notifyObservers();
                     return ville;
                 } else {
-                    System.out.println("record introuvable");
+                    System.out.println("Erreur lors de la récupération de l'ID de la ville nouvellement insérée");
                     return null;
                 }
-            } else return null;
+            } else {
+                System.out.println("Erreur lors de l'insertion de la ville");
+                return null;
+            }
         } catch (SQLException e) {
-            System.out.println("erreur sql :" + e);
+            System.out.println("Erreur SQL : " + e.getMessage());
             return null;
         }
     }
+
 
     @Override
     public boolean removeVille(Ville ville) {
@@ -68,10 +77,13 @@ public class VilleModelDB extends DAOVille {
 
     @Override
     public Ville updateVille(Ville ville) {
-        String query = "update APIVILLE set nom=? where idCourse = ?";
+        String query = "update APIVILLE set nom=?, latitude=?, longitude=?,pays=? where idVille = ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1, ville.getNom());
-            pstm.setInt(2, ville.getIdVille());
+            pstm.setDouble(2, ville.getLatitude());
+            pstm.setDouble(3, ville.getLongitude());
+            pstm.setString(4, ville.getPays());
+            pstm.setInt(5, ville.getIdVille());
             int n = pstm.executeUpdate();
             notifyObservers();
             if (n != 0) return readVille(ville.getIdVille());

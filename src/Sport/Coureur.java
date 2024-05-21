@@ -191,4 +191,16 @@ public class Coureur {
         Coureur coureur = (Coureur) o;
         return idCoureur == coureur.idCoureur;
     }
+    @Override
+    public String toString() {
+        return "Coureur{" +
+                "idCoureur=" + idCoureur +
+                ", matricule='" + matricule + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", dateNaiss=" + dateNaiss +
+                ", nationalite='" + nationalite + '\'' +
+                ", villeResidence=" + villeResidence +
+                '}';
+    }
 }

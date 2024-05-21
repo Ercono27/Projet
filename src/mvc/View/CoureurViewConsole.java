@@ -1,9 +1,11 @@
 package mvc.View;
 import Sport.*;
 import mvc.Controller.VilleController;
+import mvc.Model.VilleModelDB;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -14,10 +16,9 @@ import static utilitaires.Utilitaire.choixListe;
 public class CoureurViewConsole extends CoureurAbstarctView{
     private Scanner sc=new Scanner(System.in);
     private VilleController villeController;
-    public CoureurViewConsole(VilleController villeController) {
-        this.villeController = villeController;
+    public CoureurViewConsole() {
+        this.villeController = new VilleController(new VilleModelDB(), new VilleViewConsole());
     }
-    public CoureurViewConsole(){}
 
     @Override
     public void affMsg(String msg) {
@@ -49,16 +50,16 @@ public class CoureurViewConsole extends CoureurAbstarctView{
         }while(true);
     }
 
-
     private void ajouter() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         System.out.print("Matricule: ");
         String matricule = sc.nextLine();
         System.out.print("Nom: ");
         String nom = sc.nextLine();
         System.out.print("Prenom: ");
         String prenom = sc.nextLine();
-        System.out.print("Date de naissance : ");
-        LocalDate dateNaiss = LocalDate.parse(sc.nextLine());
+        System.out.print("Date de naissance (dd-MM-yyyy): ");
+        LocalDate dateNaiss = LocalDate.parse(sc.nextLine(), formatter);
         System.out.print("Nationalite: ");
         String nationalite = sc.nextLine();
         Ville villeResidence = selectionnerVille();
@@ -69,7 +70,7 @@ public class CoureurViewConsole extends CoureurAbstarctView{
     }
 
     private void modifier() {
-        int nl = choixElt(lc);
+        int nl = choixListe(lc);
         Coureur co = lc.get(nl-1);
         String nom = modifyIfNotBlank("Nom du Coureur",co.getNom());
         String matricule = modifyIfNotBlank("Matricule",co.getMatricule());
@@ -85,12 +86,14 @@ public class CoureurViewConsole extends CoureurAbstarctView{
     private void rechercher() {
         System.out.println("idCoureur : ");
         int idCourse = sc.nextInt();
-        coureurController.search(idCourse);
+        Coureur c=coureurController.search(idCourse);
+        if (c==null) affMsg("Recherche infructueuse.");
+        else affMsg(c.toString());
     }
 
     private void retirer() {
 
-        int nl = choixElt(lc);
+        int nl = choixListe(lc);
         Coureur pr = lc.get(nl-1);
         boolean ok = coureurController.removeCoureur(pr);
         if(ok) affMsg("Course effacé");

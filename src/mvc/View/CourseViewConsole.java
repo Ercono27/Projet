@@ -10,8 +10,6 @@ import static utilitaires.Utilitaire.*;
 
 public class CourseViewConsole extends CourseAbstractView {
     private Scanner sc = new Scanner(System.in);
-
-
     @Override
     public void affMsg(String msg) {
         System.out.println("information:"+msg);
@@ -21,7 +19,6 @@ public class CourseViewConsole extends CourseAbstractView {
     public void affList(List infos) {
         affListe(infos);
     }
-
 
     public void menu(){
         update(courseController.getAll());
@@ -46,7 +43,6 @@ public class CourseViewConsole extends CourseAbstractView {
 
     private void modifier() {
         int nl = choixElt(lc);
-
         Course co = lc.get(nl-1);
         String nom = modifyIfNotBlank("nom de la Course",co.getNom());
         BigDecimal pm = new BigDecimal(modifyIfNotBlank("Price money",""+co.getPriceMoney()));
@@ -63,7 +59,6 @@ public class CourseViewConsole extends CourseAbstractView {
     }
 
     private void retirer() {
-
         int nl = choixElt(lc);
         Course pr = lc.get(nl-1);
         boolean ok = courseController.removeCourse(pr);

@@ -15,11 +15,9 @@ public class ClassementViewConsole extends ClassementAbstractView {
     private List<Classement> lc;
     private CoureurController coureurController;
     private CourseController courseController;
-    private ClassementController classementController;
-    public ClassementViewConsole(CoureurController coureurController,CourseController courseController,ClassementController classementController) {
+    public ClassementViewConsole(CoureurController coureurController,CourseController courseController) {
         this.coureurController = coureurController;
         this.courseController=courseController;
-        this.classementController=classementController;
     }
     public ClassementViewConsole(){}
     @Override

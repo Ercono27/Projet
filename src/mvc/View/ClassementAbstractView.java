@@ -8,10 +8,10 @@ import mvc.Observer.Observer;
 import java.util.List;
 
 public abstract class ClassementAbstractView implements Observer {
-    protected ClassementController controller;
+    protected ClassementController classementController;
     protected List<Infos> li;
 
-    public void setController(ClassementController controller) {this.controller = controller;}
+    public void setController(ClassementController controller) {this.classementController = controller;}
     public abstract void affMsg(String msg);
     public abstract Classement selectionner();
     public abstract void menu();

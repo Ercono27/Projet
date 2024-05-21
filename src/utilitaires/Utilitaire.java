@@ -67,7 +67,7 @@ public class Utilitaire {
     public static int choixElt(List l){
         int choix;
         do {
-            System.out.println("choix :");
+            System.out.println("choix du numéro :");
             choix = lireInt();
 
         } while(choix <1 || choix > l.size());
