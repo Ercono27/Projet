@@ -42,7 +42,7 @@ public class CourseViewConsole extends CourseAbstractView {
 
 
     private void modifier() {
-        int nl = choixElt(lc);
+        int nl = choixListe(lc);
         Course co = lc.get(nl-1);
         String nom = modifyIfNotBlank("nom de la Course",co.getNom());
         BigDecimal pm = new BigDecimal(modifyIfNotBlank("Price money",""+co.getPriceMoney()));
@@ -55,11 +55,16 @@ public class CourseViewConsole extends CourseAbstractView {
     private void rechercher() {
         System.out.println("idCourse : ");
         int idCourse = sc.nextInt();
-        courseController.search(idCourse);
+        Course c=courseController.search(idCourse);
+        if(c==null) affMsg("recherche infructueuse");
+        else {
+            affMsg(c.toString());
+
+        }
     }
 
     private void retirer() {
-        int nl = choixElt(lc);
+        int nl = choixListe(lc);
         Course pr = lc.get(nl-1);
         boolean ok = courseController.removeCourse(pr);
         if(ok) affMsg("Course effacé");

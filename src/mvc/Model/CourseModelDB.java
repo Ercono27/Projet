@@ -31,6 +31,8 @@ public class CourseModelDB extends DAOCourse{
             int n = pstm1.executeUpdate();
             if(n==1){
                 pstm2.setString(1,course.getNom());
+                pstm2.setBigDecimal(2,course.getPriceMoney());
+                pstm2.setInt(3,course.getKm());
                 ResultSet rs= pstm2.executeQuery();
                 if(rs.next()){
                     int idCourse= rs.getInt(1);
@@ -65,10 +67,12 @@ public class CourseModelDB extends DAOCourse{
     }
     @Override
     public Course updateCourse(Course course) {
-        String query = "update APICOURSE set pricemoney=? where idCourse = ?";
+        String query = "update APICOURSE set nom=?,pricemoney=?,km=? where idCourse = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setBigDecimal(1,course.getPriceMoney());
-            pstm.setInt(2,course.getIdCourse());
+            pstm.setString(1,course.getNom());
+            pstm.setBigDecimal(2,course.getPriceMoney());
+            pstm.setInt(3,course.getKm());
+            pstm.setInt(4,course.getIdCourse());
             int n = pstm.executeUpdate();
             notifyObservers();
             if(n!=0) return readCourse(course.getIdCourse());

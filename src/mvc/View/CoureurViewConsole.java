@@ -92,7 +92,6 @@ public class CoureurViewConsole extends CoureurAbstarctView{
     }
 
     private void retirer() {
-
         int nl = choixListe(lc);
         Coureur pr = lc.get(nl-1);
         boolean ok = coureurController.removeCoureur(pr);

@@ -11,6 +11,7 @@ import java.util.List;
 public class InfosModelDB extends DAOInfos {
     private Connection dbConnect;
     private DAOVille daoVille;
+    private DAOCourse daoCourse;
 
     public InfosModelDB() {
         dbConnect = DBConnection.getConnection();
@@ -92,7 +93,9 @@ public class InfosModelDB extends DAOInfos {
                 LocalDate departDate = rs.getDate(2).toLocalDate();
                 int villeId = rs.getInt(3);
                 Ville ville = daoVille.readVille(villeId);
-                return new Infos(idInfos, departDate, ville);
+                int courseId= rs.getInt(4);
+                Course course=daoCourse.readCourse(courseId);
+                return new Infos(idInfos, departDate, ville,course);
             } else {
                 return null;
             }
@@ -113,7 +116,9 @@ public class InfosModelDB extends DAOInfos {
                 LocalDate departDate = rs.getDate(2).toLocalDate();
                 int villeId = rs.getInt(3);
                 Ville ville = daoVille.readVille(villeId);
-                li.add(new Infos(idInfos, departDate, ville));
+                int courseId=rs.getInt(4);
+                Course course=daoCourse.readCourse(courseId);
+                li.add(new Infos(idInfos, departDate, ville,course));
             }
             return li;
         } catch (SQLException e) {

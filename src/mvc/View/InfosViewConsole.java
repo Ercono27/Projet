@@ -1,10 +1,15 @@
 package mvc.View;
 
+import Sport.Course;
 import Sport.Infos;
 import Sport.Ville;
+import mvc.Controller.CourseController;
 import mvc.Controller.VilleController;
+import mvc.Model.CourseModelDB;
+import mvc.Model.VilleModelDB;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -15,10 +20,11 @@ public class InfosViewConsole extends InfosAbstractView {
     private Scanner sc = new Scanner(System.in);
 
     private VilleController villeController;
-    public InfosViewConsole(VilleController villeController) {
-        this.villeController = villeController;
+    private CourseController courseController;
+    public InfosViewConsole(){
+        this.villeController = new VilleController(new VilleModelDB(), new VilleViewConsole());
+        this.courseController = new CourseController(new CourseModelDB(), new CourseViewConsole());
     }
-    public InfosViewConsole(){}
 
     @Override
     public void affMsg(String msg) {
@@ -55,10 +61,12 @@ public class InfosViewConsole extends InfosAbstractView {
     }
 
     private void ajouter() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         System.out.print("Date de départ: ");
-        LocalDate departDate = LocalDate.parse(sc.nextLine());
+        LocalDate departDate = LocalDate.parse(sc.nextLine(), formatter);
         Ville ville = selectionnerVille();
-        Infos infos = new Infos(0, departDate, ville);
+        Course course=selectionnerCourse();
+        Infos infos = new Infos(0, departDate, ville, course);
         Infos nouvelleInfos = infosController.addInfos(infos);
         if (nouvelleInfos != null) affMsg("Création de : " + nouvelleInfos);
         else affMsg("Erreur de création");
@@ -69,7 +77,8 @@ public class InfosViewConsole extends InfosAbstractView {
         Infos infos = li.get(nl - 1);
         LocalDate departDate = LocalDate.parse(modifyIfNotBlank("Date de départ: ", "" + infos.getDepartDate()));
         Ville ville = selectionnerVille();
-        Infos infosMaj = infosController.update(new Infos(infos.getIdInfos(), departDate, ville));
+        Course course=selectionnerCourse();
+        Infos infosMaj = infosController.update(new Infos(infos.getIdInfos(), departDate, ville,course));
         if (infosMaj == null) affMsg("Mise à jour infructueuse");
         else affMsg("Mise à jour effectuée : " + infosMaj);
     }
@@ -106,6 +115,20 @@ public class InfosViewConsole extends InfosAbstractView {
         for (Ville ville : villes) {
             if (ville.getIdVille() == idVille) {
                 return ville;
+            }
+        }
+        return null;
+    }
+    private Course selectionnerCourse() {
+        System.out.println("Courses disponibles :");
+        List<Course> courses = courseController.getAll();
+        affList(courses);
+        System.out.print("Entrez l'ID de la course : ");
+        int idCourse = sc.nextInt();
+        sc.nextLine();
+        for (Course course : courses) {
+            if (course.getIdCourse() == idCourse) {
+                return course;
             }
         }
         return null;

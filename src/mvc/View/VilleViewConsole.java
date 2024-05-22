@@ -46,7 +46,6 @@ public class VilleViewConsole extends VilleAbstractView {
 
     private void modifier() {
         int nl = choixListe(lv);
-
         Ville vi = lv.get(nl-1);
         String nom = modifyIfNotBlank("Nom de la ville",vi.getNom());
         double latitude = Double.parseDouble(modifyIfNotBlank("Latitude :",""+vi.getLatitude()));

@@ -24,6 +24,8 @@ public class Infos {
      */
     private Ville ville;
 
+    private Course course;
+
     /**
      * Constructeur par défaut de la classe Infos
      */
@@ -36,7 +38,7 @@ public class Infos {
      * @param departDate Date de départ associée à la ville
      * @param ville Ville associée aux informations
      */
-    public Infos(int idInfos, LocalDate departDate, Ville ville) {
+    public Infos(int idInfos, LocalDate departDate, Ville ville,Course course) {
         this.idInfos = idInfos;
         this.departDate = departDate;
         this.ville = ville;
@@ -90,6 +92,14 @@ public class Infos {
         this.ville = ville;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     /**
      * Redéfinition de la méthode equals pour comparer deux ensembles d'informations par leur identifiant unique
      * @param o l'objet à comparer
@@ -101,5 +111,15 @@ public class Infos {
         if (o == null || getClass() != o.getClass()) return false;
         Infos infos = (Infos) o;
         return idInfos == infos.idInfos;
+    }
+
+    @Override
+    public String toString() {
+        return "Infos{" +
+                "idInfos=" + idInfos +
+                ", departDate=" + departDate +
+                ", ville=" + ville +
+                ", course=" + course +
+                '}';
     }
 }
