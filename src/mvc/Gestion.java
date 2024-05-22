@@ -50,7 +50,7 @@ public class Gestion {
         im.addObserver(iv);
         vm.addObserver(vv);
 
-        List<String> loptions = Arrays.asList("Course","Classement","Coureur","Infos","Ville");
+        List<String> loptions = Arrays.asList("Course","Classement","Coureur","Infos","Ville","Quitter");
         do {
             int ch = Utilitaire.choixListe(loptions);
             switch (ch){

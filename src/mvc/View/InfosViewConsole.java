@@ -1,8 +1,6 @@
 package mvc.View;
 
-import Sport.Course;
-import Sport.Infos;
-import Sport.Ville;
+import Sport.*;
 import mvc.Controller.CourseController;
 import mvc.Controller.VilleController;
 import mvc.Model.CourseModelDB;
@@ -18,7 +16,6 @@ import static utilitaires.Utilitaire.*;
 
 public class InfosViewConsole extends InfosAbstractView {
     private Scanner sc = new Scanner(System.in);
-
     private VilleController villeController;
     private CourseController courseController;
     public InfosViewConsole(){
@@ -73,7 +70,7 @@ public class InfosViewConsole extends InfosAbstractView {
     }
 
     private void modifier() {
-        int nl = choixElt(li);
+        int nl = choixListe(li);
         Infos infos = li.get(nl - 1);
         LocalDate departDate = LocalDate.parse(modifyIfNotBlank("Date de départ: ", "" + infos.getDepartDate()));
         Ville ville = selectionnerVille();
@@ -92,7 +89,7 @@ public class InfosViewConsole extends InfosAbstractView {
     }
 
     private void retirer() {
-        int nl = choixElt(li);
+        int nl = choixListe(li);
         Infos infos = li.get(nl - 1);
         boolean ok = infosController.removeInfos(infos);
         if (ok) affMsg("Infos supprimées");
@@ -101,7 +98,7 @@ public class InfosViewConsole extends InfosAbstractView {
 
     @Override
     public Infos selectionner() {
-        int nl = choixElt(li);
+        int nl = choixListe(li);
         return li.get(nl - 1);
     }
 

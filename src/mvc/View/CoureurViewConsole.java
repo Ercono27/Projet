@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import static utilitaires.Utilitaire.*;
-import static utilitaires.Utilitaire.choixListe;
 
 public class CoureurViewConsole extends CoureurAbstarctView{
     private Scanner sc=new Scanner(System.in);

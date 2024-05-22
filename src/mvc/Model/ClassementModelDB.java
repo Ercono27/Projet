@@ -12,6 +12,8 @@ import java.util.List;
 
 public class ClassementModelDB extends DAOClassement {
     private Connection dbConnect;
+    private DAOCourse daoCourse;
+    private DAOCoureur daoCoureur;
 
     public ClassementModelDB() {
         dbConnect = DBConnection.getConnection();
@@ -19,12 +21,14 @@ public class ClassementModelDB extends DAOClassement {
             System.err.println("Erreur de connexion.");
             System.exit(1);
         }
+        daoCourse=new CourseModelDB();
+        daoCoureur=new CoureurModelDB();
     }
 
     @Override
     public Classement addClassement(Classement classement) {
         String query1 = "INSERT INTO APICLASSEMENT(place, gain, idCoureur, idCourse) VALUES(?, ?, ?, ?)";
-        String query2 = "SELECT idClassement FROM APICLASSEMENT WHERE place=? AND idCoureur=? AND idCourse=?";
+        String query2 = "SELECT idclassement FROM APICLASSEMENT WHERE place=? AND gain=? AND idCoureur=? AND idCourse=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(query1);
              PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
             pstm1.setInt(1, classement.getPlace());
@@ -34,8 +38,9 @@ public class ClassementModelDB extends DAOClassement {
             int n = pstm1.executeUpdate();
             if (n == 1) {
                 pstm2.setInt(1, classement.getPlace());
-                pstm2.setInt(2, classement.getCour().getIdCoureur());
-                pstm2.setInt(3, classement.getCourse().getIdCourse());
+                pstm2.setBigDecimal(2, classement.getGain());
+                pstm2.setInt(3, classement.getCour().getIdCoureur());
+                pstm2.setInt(4, classement.getCourse().getIdCourse());
                 ResultSet rs = pstm2.executeQuery();
                 if (rs.next()) {
                     int idClassement = rs.getInt(1);
@@ -97,11 +102,9 @@ public class ClassementModelDB extends DAOClassement {
                 int place = rs.getInt(2);
                 BigDecimal gain = rs.getBigDecimal(3);
                 int coureurId = rs.getInt(4);
+                Coureur coureur = daoCoureur.readCoureur(coureurId);
                 int courseId = rs.getInt(5);
-                DAOCoureur coureurDAO = new CoureurModelDB();
-                Coureur coureur = coureurDAO.readCoureur(coureurId);
-                DAOCourse courseDAO = new CourseModelDB();
-                Course course = courseDAO.readCourse(courseId);
+                Course course = daoCourse.readCourse(courseId);
                 return new Classement(idClassement, place, gain, coureur, course);
             } else {
                 return null;
@@ -123,11 +126,9 @@ public class ClassementModelDB extends DAOClassement {
                 int place = rs.getInt(2);
                 BigDecimal gain = rs.getBigDecimal(3);
                 int coureurId = rs.getInt(4);
+                Coureur coureur = daoCoureur.readCoureur(coureurId);
                 int courseId = rs.getInt(5);
-                DAOCoureur coureurDAO = new CoureurModelDB();  // Assurez-vous que cette classe existe
-                Coureur coureur = coureurDAO.readCoureur(coureurId);
-                DAOCourse courseDAO = new CourseModelDB();  // Assurez-vous que cette classe existe
-                Course course = courseDAO.readCourse(courseId);
+                Course course = daoCourse.readCourse(courseId);
                 lc.add(new Classement(idClassement, place, gain, coureur, course));
             }
             return lc;

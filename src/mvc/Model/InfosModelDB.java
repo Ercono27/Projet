@@ -19,6 +19,8 @@ public class InfosModelDB extends DAOInfos {
             System.err.println("Erreur de connexion.");
             System.exit(1);
         }
+        daoVille=new VilleModelDB();
+        daoCourse=new CourseModelDB();
     }
 
     @Override
@@ -69,11 +71,12 @@ public class InfosModelDB extends DAOInfos {
 
     @Override
     public Infos updateInfos(Infos infos) {
-        String query = "UPDATE APIINFOS SET departDate = ?, idVille = ? WHERE idInfos = ?";
+        String query = "UPDATE APIINFOS SET departDate = ?, idVille = ?,idCourse=? WHERE idInfos = ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setDate(1, Date.valueOf(infos.getDepartDate()));
             pstm.setInt(2, infos.getVille().getIdVille());
-            pstm.setInt(3, infos.getIdInfos());
+            pstm.setInt(3, infos.getCourse().getIdCourse());
+            pstm.setInt(4, infos.getIdInfos());
             int n = pstm.executeUpdate();
             notifyObservers();
             return n != 0 ? readInfos(infos.getIdInfos()) : null;
@@ -94,7 +97,7 @@ public class InfosModelDB extends DAOInfos {
                 int villeId = rs.getInt(3);
                 Ville ville = daoVille.readVille(villeId);
                 int courseId= rs.getInt(4);
-                Course course=daoCourse.readCourse(courseId);
+                Course course = daoCourse.readCourse(courseId);
                 return new Infos(idInfos, departDate, ville,course);
             } else {
                 return null;

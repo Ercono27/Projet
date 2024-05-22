@@ -9,7 +9,8 @@ import java.util.List;
 public class InfosController {
     private DAOInfos model;
     private InfosAbstractView view;
-
+    private VilleController villeController;
+    private CourseController courseController;
     public InfosController(DAOInfos model, InfosAbstractView view){
         this.model=model;
         this.view=view;

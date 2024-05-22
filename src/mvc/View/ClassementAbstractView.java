@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class ClassementAbstractView implements Observer {
     protected ClassementController classementController;
-    protected List<Infos> li;
+    protected List<Classement> lc;
 
     public void setController(ClassementController controller) {this.classementController = controller;}
     public abstract void affMsg(String msg);
@@ -18,8 +18,8 @@ public abstract class ClassementAbstractView implements Observer {
     public abstract void affList(List l);
 
     @Override
-    public void update(List li) {
-        this.li=li;
-        affList(li);
+    public void update(List lc) {
+        this.lc=lc;
+        affList(lc);
     }
 }

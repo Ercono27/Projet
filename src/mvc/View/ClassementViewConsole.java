@@ -2,6 +2,8 @@ package mvc.View;
 
 import Sport.*;
 import mvc.Controller.*;
+import mvc.Model.CoureurModelDB;
+import mvc.Model.CourseModelDB;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,14 +14,12 @@ import static utilitaires.Utilitaire.*;
 
 public class ClassementViewConsole extends ClassementAbstractView {
     private Scanner sc=new Scanner(System.in);
-    private List<Classement> lc;
     private CoureurController coureurController;
     private CourseController courseController;
-    public ClassementViewConsole(CoureurController coureurController,CourseController courseController) {
-        this.coureurController = coureurController;
-        this.courseController=courseController;
+    public ClassementViewConsole() {
+        this.coureurController = new CoureurController(new CoureurModelDB(),new CoureurViewConsole());
+        this.courseController=new CourseController(new CourseModelDB(),new CourseViewConsole());
     }
-    public ClassementViewConsole(){}
     @Override
     public void affMsg(String msg) {
         System.out.println("Information: " + msg);
@@ -66,7 +66,7 @@ public class ClassementViewConsole extends ClassementAbstractView {
         else affMsg("Erreur de création");
     }
     private void retirer() {
-        int nl = choixElt(lc);
+        int nl = choixListe(lc);
         Classement classement = lc.get(nl - 1);
         boolean ok = classementController.removeClassement(classement);
         if (ok) affMsg("Classement supprimé");
@@ -82,7 +82,7 @@ public class ClassementViewConsole extends ClassementAbstractView {
     }
 
     private void modifier() {
-        int nl = choixElt(lc);
+        int nl = choixListe(lc);
         Classement classement = lc.get(nl - 1);
         int place = Integer.parseInt(modifyIfNotBlank("Place: ", "" + classement.getPlace()));
         BigDecimal gain = new BigDecimal(modifyIfNotBlank("Gain: ", "" + classement.getGain()));
@@ -124,13 +124,5 @@ public class ClassementViewConsole extends ClassementAbstractView {
                 return c;
         }
         return null;
-    }
-    private int choixElt(List<Classement> liste) {
-        for (int i = 0; i < liste.size(); i++) {
-            System.out.println((i + 1) + ". " + liste.get(i));
-        }
-        System.out.print("Choix: ");
-        int choix = Integer.parseInt(sc.nextLine());
-        return choix;
     }
 }
