@@ -87,49 +87,36 @@ public class Coureur {
 
     public static class CoureurBuilder{
         protected int idCoureur;
-
         protected String matricule;
-
         protected String nom;
-
         protected String prenom;
-
         protected LocalDate dateNaiss;
-
         protected String nationalite;
-
         protected Ville villeResidence;
-
         public CoureurBuilder setIdCoureur(int idCoureur) {
             this.idCoureur = idCoureur;
             return this;
         }
-
         public CoureurBuilder setMatricule(String matricule) {
             this.matricule = matricule;
             return this;
         }
-
         public CoureurBuilder setNom(String nom) {
             this.nom = nom;
             return this;
         }
-
         public CoureurBuilder setPrenom(String prenom) {
             this.prenom = prenom;
             return this;
         }
-
         public CoureurBuilder setDateNaiss(LocalDate dateNaiss) {
             this.dateNaiss = dateNaiss;
             return this;
         }
-
         public CoureurBuilder setNationalite(String nationalite) {
             this.nationalite = nationalite;
             return this;
         }
-
         public CoureurBuilder setVilleResidence(Ville villeResidence) {
             this.villeResidence = villeResidence;
             return this;

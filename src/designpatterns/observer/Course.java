@@ -1,4 +1,4 @@
-package Sport;
+package designpatterns.observer;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.List;
  * @author Séraphin Terlinck
  * @version 0.1
  */
-public class Course {
+public class Course extends Subject{
     /**
      * Identifiant unique de la course
      */
@@ -35,6 +35,7 @@ public class Course {
      * Liste des classements de la course
      */
     private List<Classement> listeClassement = new ArrayList<>();
+
     /**
      * Constructeur par défaut de la classe Course
      */
@@ -102,6 +103,7 @@ public class Course {
     public void setPriceMoney(BigDecimal priceMoney) {
         this.priceMoney = priceMoney;
     }
+
     /**
      * Obtient la distance de la course en kilomètres
      * @return la distance de la course
@@ -109,6 +111,7 @@ public class Course {
     public int getKm() {
         return km;
     }
+
     /**
      * Définit la distance de la course en kilomètres
      * @param km nouvelle distance de la course
@@ -116,6 +119,7 @@ public class Course {
     public void setKm(int km) {
         this.km = km;
     }
+
     /**
      * Obtient la liste d'informations associées à la course
      * @return la liste d'informations associées à la course
@@ -123,6 +127,7 @@ public class Course {
     public List<Infos> getListeInfo() {
         return listeInfo;
     }
+
     /**
      * Obtient la liste de classements associés à la course.
      * @return la liste de classements associés à la course.
@@ -292,5 +297,9 @@ public class Course {
                 ", priceMoney=" + priceMoney +
                 ", km=" + km +
                 '}';
+    }
+    @Override
+    public String getNotification() {
+        return "Le cash prize de la course : " + nom + " a été modifié. Le nouveau cash prize: " + priceMoney;
     }
 }

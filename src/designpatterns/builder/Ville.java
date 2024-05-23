@@ -12,7 +12,7 @@ public class Ville {
     protected double latitude;
     protected double longitude;
     protected String pays;
-    protected List<Sport.Coureur> liCour = new ArrayList<>();
+    protected List<Coureur> liCour = new ArrayList<>();
 
     public Ville(VilleBuilder vb) {
         this.idVille = vb.idVille;

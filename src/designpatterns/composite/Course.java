@@ -1,4 +1,4 @@
-package Sport;
+package designpatterns.composite;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.List;
  * @author Séraphin Terlinck
  * @version 0.1
  */
-public class Course {
+public class Course extends Element{
     /**
      * Identifiant unique de la course
      */
@@ -40,7 +40,6 @@ public class Course {
      */
     public Course() {
     }
-
     /**
      * Constructeur paramètré de la classe Course
      * @param idCourse identifiant unique de la course
@@ -49,12 +48,15 @@ public class Course {
      * @param km kilométrage de la course
      */
     public Course(int idCourse, String nom, BigDecimal priceMoney, int km) {
-        this.idCourse = idCourse;
+        super(idCourse);
         this.nom = nom;
         this.priceMoney = priceMoney;
         this.km = km;
     }
-
+    @Override
+    public BigDecimal cashprice() {
+        return priceMoney;
+    }
     /**
      * Obtient l'identifiant de la course
      * @return l'identifiant de la course

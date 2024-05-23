@@ -1,7 +1,5 @@
 package designpatterns.builder;
 
-import Sport.*;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +10,9 @@ public class Course {
     protected int idCourse;
 
     protected String nom;
-
     protected BigDecimal priceMoney;
-
     protected int km;
-
     protected List<Infos> listeInfo = new ArrayList<>();
-
     protected List<Classement> listeClassement = new ArrayList<>();
 
 
@@ -31,27 +25,21 @@ public class Course {
     public int getIdCourse() {
         return idCourse;
     }
-
     public String getNom() {
         return nom;
     }
-
     public BigDecimal getPriceMoney() {
         return priceMoney;
     }
-
     public int getKm() {
         return km;
     }
-
     public List<Infos> getListeInfo() {
         return listeInfo;
     }
-
     public List<Classement> getListeClassement() {
         return listeClassement;
     }
-
     @Override
     public String toString() {
         return "Course{" +
@@ -61,7 +49,6 @@ public class Course {
                 ", km=" + km +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,7 +56,6 @@ public class Course {
         Course course = (Course) o;
         return idCourse == course.idCourse && km == course.km && Objects.equals(nom, course.nom) && Objects.equals(priceMoney, course.priceMoney) && Objects.equals(listeInfo, course.listeInfo) && Objects.equals(listeClassement, course.listeClassement);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(idCourse, nom, priceMoney, km, listeInfo, listeClassement);
