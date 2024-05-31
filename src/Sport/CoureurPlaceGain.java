@@ -87,4 +87,12 @@ public class CoureurPlaceGain {
     public void setGain(BigDecimal gain) {
         this.gain = gain;
     }
+    @Override
+    public String toString() {
+        return "CoureurPlaceGain{" +
+                "coureur=" + coureur +
+                ", place=" + place +
+                ", gain=" + gain +
+                '}';
+    }
 }

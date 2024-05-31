@@ -20,9 +20,8 @@ public class CourseViewConsole extends CourseAbstractView {
     private VilleController villeController;
     @Override
     public void affMsg(String msg) {
-        System.out.println("information:"+msg);
+        System.out.println(msg);
     }
-
     @Override
     public void affList(List infos) {
         affListe(infos);
@@ -31,12 +30,10 @@ public class CourseViewConsole extends CourseAbstractView {
         this.coureurController=new CoureurController(new CoureurModelDB(),new CoureurViewConsole());
         this.villeController=new VilleController(new VilleModelDB(),new VilleViewConsole());
     }
-
     public void menu(){
         update(courseController.getAll());
         do{
             int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher", "modifier", "Méthodes spéciales","fin"));
-
             switch(ch){
                 case 1: ajouter();
                     break;
@@ -55,24 +52,20 @@ public class CourseViewConsole extends CourseAbstractView {
     private void special(Course c) {
         affMsg(c.toString());
         do {
-            int ch = choixListe(Arrays.asList("liste des coureurs avec leurs places et leurs gains", "Gain total", "Vainqueur", "supprimer coureur", "Résultat", "Modifier","Ajouter une ville","Supprimer une ville","Liste des villes","Le Classement de cette course est-il complet?","Fin"));
+            int ch = choixListe(Arrays.asList("liste des coureurs avec leurs places et leurs gains", "Gain total", "Vainqueur","Ajouter un coureur.","Supprimer coureur", "Résultat", "Modifier","Ajouter une ville","Supprimer une ville","Liste des villes","Le Classement de cette course est-il complet?","Fin"));
             switch (ch) {
                 case 1:
                     listeCoureurPlaceGain(c);
                     break;
-
                 case 2:
                     gainTotal(c);
                     break;
-
                 case 3:
                     vainqueur(c);
                     break;
-
                 case 4:
                     adCoureur(c);
                     break;
-
                 case 5:
                     supCoureur(c);
                     break;
@@ -97,32 +90,31 @@ public class CourseViewConsole extends CourseAbstractView {
                 case 12:
                     return;
             }
-            ;
         } while (true);
     }
     public void listeCoureurPlaceGain(Course c){
-        List<Coureur> coureurs= CourseController.listeCoureurPlaceGain(c);
-        if (coureurs.isEmpty()) affMsg("Aucun coureurs trouvé.");
+        List<CoureurPlaceGain> coureurs= courseController.listeCoureurPlaceGain(c);
+        if (coureurs.isEmpty()) affMsg("Aucun coureur trouvé.");
         else affList(coureurs);
     }
     public void gainTotal(Course c){
-        BigDecimal total=CourseController.gainTotal(c);
-        affMsg("Gain total de la course "+c.getNom()+" : "+total);
+        BigDecimal total=courseController.gainTotal(c);
+        affMsg("Gain total de la course "+c.getNom()+" : "+total+" €.");
     }
     public void vainqueur(Course c){
-        Coureur coureur=CourseController.vainqueur(c);
+        Coureur coureur=courseController.vainqueur(c);
         if (coureur==null) affMsg("Aucun vainqueur pour la course.");
         else affMsg("Le vainqueur de la course est : "+coureur);
     }
     public void adCoureur(Course c){
         Coureur coureur= selectionnerCoureur();
-        boolean ok = CourseController.adCoureur(coureur,c);
+        boolean ok = courseController.adCoureur(coureur,c);
         if(ok) affMsg("Coureur ajouté.");
         else affMsg("Erreur lors de l'ajout du coureur.");
     }
     public void supCoureur(Course c){
         Coureur coureur= selectionnerCoureur();
-        boolean ok = CourseController.supCoureur(coureur,c);
+        boolean ok = courseController.supCoureur(coureur,c);
         if(ok) affMsg("Coureur supprimé.");
         else affMsg("Erreur lors de la suppression du coureur.");
     }
@@ -132,7 +124,7 @@ public class CourseViewConsole extends CourseAbstractView {
         int place=sc.nextInt();
         System.out.println("Quelle gain ?");
         BigDecimal gain=sc.nextBigDecimal();
-        boolean ok= CourseController.resultat(coureur,place,gain,c);
+        boolean ok= courseController.resultat(coureur,place,gain,c);
         if(ok) affMsg("Résultat bien enregistré.");
         else affMsg("Erreur lors de l'enregistrement du résultat.");
     }
@@ -142,33 +134,32 @@ public class CourseViewConsole extends CourseAbstractView {
         int place=sc.nextInt();
         System.out.println("Quelle gain ?");
         BigDecimal gain=sc.nextBigDecimal();
-        boolean ok= CourseController.modifierC(coureur,place,gain,c);
+        boolean ok= courseController.modifierC(coureur,place,gain,c);
         if(ok) affMsg("Résultat bien modifié.");
         else affMsg("Erreur lors de la modification du résultat.");
     }
     public void adVille(Course c){
         Ville ville=selectionnerVille();
-        boolean ok = CourseController.adVille(c,ville);
+        boolean ok = courseController.adVille(c,ville);
         if(ok) affMsg("Ville bien ajoutée.");
         else affMsg("Erreur lors de l'ajout de la ville.");
     }
     public void supVille(Course c){
         Ville ville=selectionnerVille();
-        boolean ok = CourseController.supVille(c,ville);
+        boolean ok = courseController.supVille(c,ville);
         if(ok) affMsg("Ville bien supprimée.");
         else affMsg("Erreur lors de la suppression de la ville.");
     }
     public void listeVille(Course c){
-        List<Ville> villes=CourseController.listeVille(c);
+        List<Ville> villes=courseController.listeVille(c);
         if(villes.isEmpty())affMsg("Aucune ville trouvée pour cette course.");
         else affList(villes);
     }
     public void classementComplet(Course c){
-        boolean ok=CourseController.classementComplet(c);
+        boolean ok=courseController.classementComplet(c);
         if (ok)affMsg("Le classement est bien complet.");
         else affMsg("Le classement est incomplet.");
     }
-
 
     private void modifier() {
         int nl = choixListe(lc);
@@ -219,7 +210,6 @@ public class CourseViewConsole extends CourseAbstractView {
         Course pr = lc.get(nl-1);
         return pr;
     }
-
 
     private Coureur selectionnerCoureur() {
         System.out.print("Coureurs : ");
