@@ -24,7 +24,7 @@ public class Championnat extends Element{
     }
     @Override
     public BigDecimal cashprice() {
-        BigDecimal somme= BigDecimal.valueOf(0);
+        BigDecimal somme= BigDecimal.ZERO;
         for(Element e:elts){
             somme = somme.add(e.cashprice());
         }

@@ -177,7 +177,7 @@ public class Course extends Element{
      * Méthode pour ajouter un coureur à la liste de classement de la course
      * @param c le coureur à ajouter
      */
-    public void addCoureur(Coureur c) {
+    public void adCoureur(Coureur c) {
         Classement cl = new Classement();
         cl.setCour(c);
         listeClassement.add(cl);
@@ -212,7 +212,7 @@ public class Course extends Element{
      * @param place la nouvelle place du coureur
      * @param gain le nouveau gain du coureur
      */
-    public void modifier(Coureur c, int place, BigDecimal gain) {
+    public void modifierC(Coureur c, int place, BigDecimal gain) {
         int x = listeClassement.indexOf(c);
         Classement cla = new Classement();
         if (x != -1)
@@ -230,7 +230,7 @@ public class Course extends Element{
      * Méthode pour ajouter une ville aux informations associées à la course
      * @param ville la ville à ajouter
      */
-    public void addVille(Ville ville) {
+    public void adVille(Ville ville) {
         Infos i = new Infos();
         LocalDate d = null;
         i.setVille(ville);
