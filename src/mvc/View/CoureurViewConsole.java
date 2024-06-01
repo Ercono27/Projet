@@ -83,7 +83,7 @@ public class CoureurViewConsole extends CoureurAbstarctView{
     }
 
     private void rechercher() {
-        System.out.println("idCoureur : ");
+        System.out.println("id Coureur : ");
         int idCourse = sc.nextInt();
         Coureur c=coureurController.search(idCourse);
         if (c==null) affMsg("Recherche infructueuse.");
