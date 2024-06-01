@@ -1,4 +1,5 @@
 package mvc.Controller;
+import Sport.Coureur;
 import Sport.Ville;
 import mvc.Model.DAOVille;
 import mvc.View.VilleAbstractView;
@@ -20,4 +21,5 @@ public class VilleController {
     public boolean removeVille(Ville ville) {return model.removeVille(ville);}
     public Ville update(Ville ville) {return model.updateVille(ville);}
     public Ville search(int idVille) {return model.readVille(idVille);}
+    public List<Coureur> getCoureurByVille(int idVille){return model.getCoureurByVille(idVille);}
 }

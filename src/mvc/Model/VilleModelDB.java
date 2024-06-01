@@ -1,5 +1,6 @@
 package mvc.Model;
 
+import Sport.Coureur;
 import Sport.Course;
 import Sport.Ville;
 import myconnections.DBConnection;
@@ -134,6 +135,10 @@ public class VilleModelDB extends DAOVille {
             System.out.println("erreur sql :" + e);
             return null;
         }
+    }
+    @Override
+    public List<Coureur> getCoureurByVille(int idVille){
+        return List.of();
     }
 
     @Override

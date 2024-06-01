@@ -1,5 +1,6 @@
 package mvc.View;
 
+import Sport.Coureur;
 import Sport.Course;
 import Sport.Ville;
 import mvc.Controller.VilleController;
@@ -28,7 +29,7 @@ public class VilleViewConsole extends VilleAbstractView {
     public void menu(){
         update(villeController.getAll());
         do{
-            int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher", "modifier", "fin"));
+            int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher", "modifier", "Avoir les coureurs provenant d'une ville","fin"));
 
             switch(ch){
                 case 1: ajouter();
@@ -39,7 +40,9 @@ public class VilleViewConsole extends VilleAbstractView {
                     break;
                 case 4 : modifier();
                     break;
-                case 5 : return;
+                case 5: getCoureurByVille();
+                    break;
+                case 6 : return;
             }
         }while(true);
     }
@@ -89,6 +92,12 @@ public class VilleViewConsole extends VilleAbstractView {
         Ville pr = villeController.addVille(new Ville(0,nom,latitude,longitude,pays)) ;
         if(pr!=null) affMsg("création de :"+pr);
         else affMsg("erreur de création");
+    }
+    private void getCoureurByVille(){
+        int nl = choixListe(lv);
+        Ville pr = lv.get(nl-1);
+        List<Coureur> lc =villeController.getCoureurByVille(pr.getIdVille());
+        affList(lc);
     }
 
     @Override

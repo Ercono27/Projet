@@ -194,13 +194,13 @@ public class CourseModelDB extends DAOCourse {
         String query2 = "SELECT idclassement FROM APICLASSEMENT WHERE place=? AND gain=? AND idCoureur=? AND idCourse=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(query1);
              PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
-            pstm1.setInt(1, -1);
+            pstm1.setInt(1, 0);
             pstm1.setBigDecimal(2, BigDecimal.valueOf(0));
             pstm1.setInt(3, coureur.getIdCoureur());
             pstm1.setInt(4, c.getIdCourse());
             int n = pstm1.executeUpdate();
             if (n == 1) {
-                pstm2.setInt(1, -1);
+                pstm2.setInt(1, 0);
                 pstm2.setBigDecimal(2, BigDecimal.valueOf(0));
                 pstm2.setInt(3, coureur.getIdCoureur());
                 pstm2.setInt(4, c.getIdCourse());
@@ -342,14 +342,13 @@ public class CourseModelDB extends DAOCourse {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 place = rs.getInt(1);
-                if (place < 1) return false;
+                if (place == 0) return false;
             }
             return true;
         } catch (SQLException e) {
             System.out.println("Erreur SQL : " + e);
             return false;
         }
-
     }
 
     @Override

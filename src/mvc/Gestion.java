@@ -30,7 +30,8 @@ public class Gestion {
         clm= new ClassementModelDB();
         com=new CoureurModelDB();
         im=new InfosModelDB();
-        vm=new VilleModelDB();
+        //vm=new VilleModelDB();
+        vm=new VilleModelHyb();
 
         cv = new CourseViewConsole();
         clv=new ClassementViewConsole();
