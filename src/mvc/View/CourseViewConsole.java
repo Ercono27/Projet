@@ -113,13 +113,13 @@ public class CourseViewConsole extends CourseAbstractView {
         else affMsg("Erreur lors de l'ajout du coureur.");
     }
     public void supCoureur(Course c){
-        Coureur coureur= selectionnerCoureur();
+        Coureur coureur= selectionnerCoureur2(c);
         boolean ok = courseController.supCoureur(coureur,c);
         if(ok) affMsg("Coureur supprimé.");
         else affMsg("Erreur lors de la suppression du coureur.");
     }
     public void resultat(Course c){
-        Coureur coureur= selectionnerCoureur();
+        Coureur coureur= selectionnerCoureur2(c);
         System.out.println("Quelle place ?");
         int place=sc.nextInt();
         System.out.println("Quelle gain ?");
@@ -129,7 +129,7 @@ public class CourseViewConsole extends CourseAbstractView {
         else affMsg("Erreur lors de l'enregistrement du résultat.");
     }
     public void modifierC(Course c){
-        Coureur coureur= selectionnerCoureur();
+        Coureur coureur= selectionnerCoureur2(c);
         System.out.println("Quelle place ?");
         int place=sc.nextInt();
         System.out.println("Quelle gain ?");
@@ -145,7 +145,7 @@ public class CourseViewConsole extends CourseAbstractView {
         else affMsg("Erreur lors de l'ajout de la ville.");
     }
     public void supVille(Course c){
-        Ville ville=selectionnerVille();
+        Ville ville=selectionnerVille2(c);
         boolean ok = courseController.supVille(c,ville);
         if(ok) affMsg("Ville bien supprimée.");
         else affMsg("Erreur lors de la suppression de la ville.");
@@ -224,6 +224,19 @@ public class CourseViewConsole extends CourseAbstractView {
         }
         return null;
     }
+    private Coureur selectionnerCoureur2(Course course) {
+        System.out.print("Coureurs : ");
+        List<CoureurPlaceGain> coureurs= courseController.listeCoureurPlaceGain(course);
+        affList(coureurs);
+        System.out.println("Entrez l'id du coureur :");
+        int idCoureur = sc.nextInt();
+        sc.nextLine();
+        for (CoureurPlaceGain c : coureurs){
+            if (c.getCoureur().getIdCoureur()==idCoureur)
+                return c.getCoureur();
+        }
+        return null;
+    }
     private Ville selectionnerVille() {
         System.out.println("Villes disponibles :");
         List<Ville> villes = villeController.getAll();
@@ -238,6 +251,23 @@ public class CourseViewConsole extends CourseAbstractView {
         }
         return null;
     }
+
+    private Ville selectionnerVille2(Course c) {
+        System.out.println("Villes disponibles :");
+        List<Ville> villes = courseController.listeVille(c);
+        affList(villes);
+        System.out.print("Entrez l'ID de la ville de résidence : ");
+        int idVille = sc.nextInt();
+        sc.nextLine();
+        for (Ville ville : villes) {
+            if (ville.getIdVille() == idVille) {
+                return ville;
+            }
+        }
+        return null;
+    }
+
+
     private Course selectionnerCourse(){
         System.out.println("Course disponibles :");
         List<Course> courses=courseController.getAll();

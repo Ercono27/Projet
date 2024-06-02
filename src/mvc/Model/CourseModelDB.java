@@ -299,7 +299,6 @@ public class CourseModelDB extends DAOCourse {
             return false;
         }
     }
-
     @Override
     public boolean supVille(Course course, Ville ville) {
         String query = "DELETE FROM APIINFOS where idVille=? AND idCourse = ?";
@@ -313,7 +312,6 @@ public class CourseModelDB extends DAOCourse {
             return false;
         }
     }
-
     @Override
     public List<Ville> listeVille(Course course) {
         List<Ville> lv = new ArrayList<>();
@@ -332,7 +330,6 @@ public class CourseModelDB extends DAOCourse {
             return null;
         }
     }
-
     @Override
     public boolean classementComplet(Course course) {
         int place;
