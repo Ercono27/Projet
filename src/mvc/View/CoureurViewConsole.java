@@ -33,7 +33,7 @@ public class CoureurViewConsole extends CoureurAbstarctView{
     public void menu(){
         update(coureurController.getAll());
         do{
-            int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher", "modifier", "fin"));
+            int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher","recherche avec gain total","modifier","fin"));
 
             switch(ch){
                 case 1: ajouter();
@@ -42,9 +42,11 @@ public class CoureurViewConsole extends CoureurAbstarctView{
                     break;
                 case 3: rechercher();
                     break;
-                case 4 : modifier();
+                case 4:rechercher2();
+                break;
+                case 5 : modifier();
                     break;
-                case 5 : return;
+                case 6 : return;
             }
         }while(true);
     }
@@ -88,6 +90,19 @@ public class CoureurViewConsole extends CoureurAbstarctView{
         Coureur c=coureurController.search(idCourse);
         if (c==null) affMsg("Recherche infructueuse.");
         else affMsg(c.toString());
+    }
+
+    private void rechercher2(){
+        System.out.println("id Coureur : ");
+        int idCoureur = sc.nextInt();
+        Coureur c=coureurController.search(idCoureur);
+        if (c==null) affMsg("Recherche infructueuse.");
+        else {
+            affMsg(c.toString());
+            BigDecimal m = coureurController.montant(c.getIdCoureur());
+            if (m==null) m= BigDecimal.valueOf(0);
+            System.out.println("Montant total gagné : "+m+" €.");
+        }
     }
 
     private void retirer() {

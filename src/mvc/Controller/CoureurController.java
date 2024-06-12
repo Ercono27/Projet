@@ -4,12 +4,12 @@ import Sport.Coureur;
 import mvc.Model.DAOCoureur;
 import mvc.View.CoureurAbstarctView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CoureurController {
     private DAOCoureur model;
     private CoureurAbstarctView view;
-    private VilleController villeController;
     public CoureurController(DAOCoureur model, CoureurAbstarctView view){
         this.model=model;
         this.view=view;
@@ -21,4 +21,5 @@ public class CoureurController {
     public boolean removeCoureur(Coureur coureur){return model.removeCoureur(coureur);}
     public Coureur update(Coureur coureur){return model.updateCoureur(coureur);}
     public Coureur search(int idCoureur){return model.readCoureur(idCoureur);}
+    public BigDecimal montant(int idCoureur){return model.montant(idCoureur);}
 }

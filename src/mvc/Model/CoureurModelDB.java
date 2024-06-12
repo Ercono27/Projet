@@ -3,6 +3,7 @@ package mvc.Model;
 import Sport.*;
 import myconnections.DBConnection;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -115,6 +116,22 @@ public class CoureurModelDB extends DAOCoureur {
                 int villeId = rs.getInt(7);
                 Ville villeResidence = daoVille.readVille(villeId);
                 return new Coureur(idCoureur, matricule, nom, prenom, dateNaiss, nationalite, villeResidence);
+            } else return null;
+        } catch (SQLException e) {
+            System.out.println("erreur sql :" + e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal montant(int idCoureur){
+        String query = "Select SUM(GAIN) from APICLASSEMENT where idCoureur = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1, idCoureur);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                BigDecimal montant = rs.getBigDecimal(1);
+                return montant;
             } else return null;
         } catch (SQLException e) {
             System.out.println("erreur sql :" + e);

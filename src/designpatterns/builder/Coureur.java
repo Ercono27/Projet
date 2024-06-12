@@ -122,7 +122,7 @@ public class Coureur {
             return this;
         }
         public Coureur build() throws Exception {
-            if (idCoureur <= 0 || matricule == null || nom == null || prenom == null || dateNaiss == null || nationalite == null || villeResidence == null) {
+            if (!Objects.equals(villeResidence.getPays(), nationalite)||idCoureur <= 0 || matricule == null || nom == null || prenom == null || dateNaiss == null || nationalite == null || villeResidence == null) {
                 throw new Exception("Informations de construction incomplètes");
             }
             return new Coureur(this);

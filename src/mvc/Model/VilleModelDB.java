@@ -140,6 +140,8 @@ public class VilleModelDB extends DAOVille {
     public List<Coureur> getCoureurByVille(int idVille){
         return List.of();
     }
+    @Override
+    public List<Coureur>getCoureurAyantCouruDansVille(int idVille){return List.of();}
 
     @Override
     public List getNotification() {

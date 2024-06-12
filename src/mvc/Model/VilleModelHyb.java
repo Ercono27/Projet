@@ -1,7 +1,6 @@
 package mvc.Model;
 
-import Sport.Coureur;
-import Sport.Ville;
+import Sport.*;
 import myconnections.DBConnection;
 
 import java.sql.*;
@@ -12,12 +11,17 @@ import java.util.List;
 
 public class VilleModelHyb extends DAOVille{
     protected Connection dbConnect;
+    private DAOVille daoVille;
+    private DAOCourse daoCourse;
+    private DAOCoureur daoCoureur;
     public VilleModelHyb () {
         dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
             System.err.println("Erreur de connexion.");
             System.exit(1);
         }
+        daoCourse=new CourseModelDB();
+        daoCoureur=new CoureurModelDB();
     }
     @Override
     public Ville addVille(Ville ville) {
@@ -166,6 +170,45 @@ public class VilleModelHyb extends DAOVille{
         } catch (SQLException e) {
             System.out.println("erreur sql :" + e);
             return null;
+        }
+        return lc;
+    }
+
+    @Override
+    public List<Coureur>getCoureurAyantCouruDansVille(int idVille){
+        List<Coureur>lc=new ArrayList<>();
+        List<Integer> li = new ArrayList<>();
+        List<Integer> lcla=new ArrayList<>();
+        String query = "Select idcourse from APIINFOS where idVille = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1, idVille);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                int courseId=rs.getInt(1);
+                li.add(courseId);
+            }
+        } catch (SQLException e) {
+            System.out.println("erreur sql :" + e);
+            return null;
+        }
+        for (int i:li){
+            String query2="Select idcoureur from APICLASSEMENT where idCourse = ?";
+            try (PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
+                pstm2.setInt(1, i);
+                ResultSet rs2 = pstm2.executeQuery();
+                while (rs2.next()){
+                    int classementid = rs2.getInt(1);
+                    lcla.add(classementid);
+                }
+            }catch (SQLException e) {
+                System.out.println("erreur sql :" + e);
+                return null;
+            }
+        }
+        for (int j:lcla){
+            Coureur c = daoCoureur.readCoureur(j);
+            if (!lc.contains(c))
+                lc.add(c);
         }
         return lc;
     }

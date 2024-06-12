@@ -29,7 +29,7 @@ public class VilleViewConsole extends VilleAbstractView {
     public void menu(){
         update(villeController.getAll());
         do{
-            int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher", "modifier", "Avoir les coureurs provenant d'une ville","fin"));
+            int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher", "modifier", "Avoir les coureurs provenant d'une ville","Avoir les coureurs ayant concouru dans une ville.","fin"));
 
             switch(ch){
                 case 1: ajouter();
@@ -42,7 +42,8 @@ public class VilleViewConsole extends VilleAbstractView {
                     break;
                 case 5: getCoureurByVille();
                     break;
-                case 6 : return;
+                case 6: getCoureurAyantCouruDansVille();
+                case 7 : return;
             }
         }while(true);
     }
@@ -98,6 +99,16 @@ public class VilleViewConsole extends VilleAbstractView {
         Ville pr = lv.get(nl-1);
         List<Coureur> lc =villeController.getCoureurByVille(pr.getIdVille());
         affList(lc);
+    }
+
+    private void getCoureurAyantCouruDansVille(){
+        int nl = choixListe(lv);
+        Ville v=lv.get(nl-1);
+        List<Coureur>lc=villeController.getCoureurAyantCouruDansVille(v.getIdVille());
+        if (lc.isEmpty())
+            affMsg("Aucun coureur n'a participé a une course dans cette ville.");
+        else
+            affList(lc);
     }
 
     @Override

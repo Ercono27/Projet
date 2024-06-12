@@ -17,4 +17,5 @@ public abstract class DAOVille extends Subject {
 
     public abstract List<Ville> getVilles();
     public abstract List<Coureur> getCoureurByVille(int idVille);
+    public abstract List<Coureur> getCoureurAyantCouruDansVille(int idVille);
 }
